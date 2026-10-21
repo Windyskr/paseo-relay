@@ -2,6 +2,15 @@
 
 All notable changes to paseo-relay are documented here.
 
+## [v0.5.1-security.1] - 2026-10-22
+
+### Security
+- Require Go 1.26.10 in `go.mod`. Release builds of v0.5.0 were compiled with Go 1.26.2 and miss every standard-library security fix released since, including the 2026-10-08 net/http, crypto/tls and net/textproto fixes (CVE-2026-94439, CVE-2026-97032, CVE-2026-78659, CVE-2026-94440, …) and the 2026-10-21 crypto/x509 fix (CVE-2026-111943). Older toolchains now switch to Go 1.26.10 automatically (`GOTOOLCHAIN=auto`) or refuse to build (`GOTOOLCHAIN=local`, e.g. a stale `golang:1.26-alpine` image; build with `docker build --pull`)
+- `/health` only answers GET and HEAD; other methods get 405. Previously `CONNECT /health` got a 200, which made the HTTP/1 connection desync CVE-2026-94439 reachable
+
+### Changed
+- WebSocket message limit raised from 10 MB to 32 MiB to match the hosted relay (upstream PR #5, merged after v0.5.0 but not yet released upstream)
+
 ## [v0.5.0] - 2026-04-11
 
 ### Performance
