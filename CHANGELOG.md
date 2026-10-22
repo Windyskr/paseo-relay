@@ -2,6 +2,12 @@
 
 All notable changes to paseo-relay are documented here.
 
+## [v0.5.1-security.2] - 2026-10-22
+
+### Security
+- HTTP server timeouts: connections that trickle request headers for more than 10s (slowloris) or idle for 2m between keep-alive requests are closed. Relayed WebSockets are not affected (upstream PR #10)
+- Relay-wide cap on message memory, `--max-message-memory` (MiB, default 256, `0` = unlimited). Messages being read and frames buffered for a daemon are charged to it; when it is full, the sender is disconnected with code 1013 (Try Again Later) or the frame is dropped, instead of memory growing until the process is OOM-killed. Set `GOMEMLIMIT` (e.g. `512MiB`) to keep the whole process close to it (upstream PR #11)
+
 ## [v0.5.1-security.1] - 2026-10-22
 
 ### Security
