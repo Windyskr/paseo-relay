@@ -148,7 +148,7 @@ TLS 应在上游终止（nginx、Caddy、Cloudflare 等）。
 - 中继服务器是零知识的 —— 无法读取或伪造消息。
 - 中继本身不做鉴权；安全性由 Paseo 的 ECDH + NaCl box 端到端加密保证。
 - 务必在上游终止 TLS，不要通过明文 HTTP 暴露中继。
-- 转发消息占用的内存受 `--max-message-memory` 限制。高负载时整个进程仍可能用到它的约 2–3.5 倍；可设置 `GOMEMLIMIT`（例如 `512MiB`）让占用更贴近该值。
+- 转发消息占用的内存受 `--max-message-memory` 限制。高负载时整个进程仍可能用到它的数倍（测试中最高约 4 倍）；可设置 `GOMEMLIMIT`（例如 `512MiB`）让占用更贴近该值。
 - 完整威胁模型请参见 [Paseo SECURITY.md](https://github.com/getpaseo/paseo/blob/main/SECURITY.md)。
 
 ## 许可证
