@@ -148,7 +148,7 @@ Then restart the daemon: `paseo daemon stop && paseo daemon start`.
 - The relay is zero-knowledge — it cannot read or forge messages.
 - No authentication on the relay itself; security is enforced end-to-end by Paseo's ECDH + NaCl box encryption.
 - Always terminate TLS upstream; do not expose the relay over plain HTTP.
-- Memory held for relayed messages is capped by `--max-message-memory`. Under heavy load the whole process can still use roughly 2–3.5× that; set `GOMEMLIMIT` (for example `512MiB`) to keep it closer.
+- Memory held for relayed messages is capped by `--max-message-memory`. Under heavy load the whole process can still use several times that (up to about 4× in tests); set `GOMEMLIMIT` (for example `512MiB`) to keep it closer.
 - See [Paseo SECURITY.md](https://github.com/getpaseo/paseo/blob/main/SECURITY.md) for the full threat model.
 
 ## License
